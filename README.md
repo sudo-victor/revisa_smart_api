@@ -1,11 +1,28 @@
-# Tasks
+# Revisa Smart API
 
-- [x] - Criar conta de estudante
-- [x] - Criar tópico de redação
-- [x] - Solicitar avaliação de redação
-- [x] - Avaliar redação
-- [x] - Listar redações de um estudante
-- [ ] - Criar categorias flash-card
-- [ ] - Criar flash cards
-- [ ] - Criar uma sessão de estudo flash card
-- [ ] - Autenticação
+## Bora Configurar?
+
+1. Clone o projeto:
+```
+git clone https://github.com/Revisa-Smart/api.git
+```
+
+2. Instale as deps:
+```
+yarn add
+```
+
+3. Execute o docker-compose:
+```
+docker-compose up --build
+```
+
+4. Rode as migrações do banco de dados:
+```
+npx prisma migrate deploy
+```
+
+5. Rode o projeto:
+```
+yarn dev
+```
