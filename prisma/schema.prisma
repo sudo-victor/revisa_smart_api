@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  STUDENT
+  TEACHER
+}
+
+enum ExamKind {
+  ENEM
+  PUC
+  UERJ
+}
+
+model User {
+  id                String            @id
+  role              UserRole
+  fullname          String
+  email             String            @unique
+  cpf               String
+  password_hash     String
+  created_at        DateTime          @default(now())
+  essay_assessments EssayAssessment[]
+
+  @@map("users")
+}
+
+model EssayAssessment {
+  id          String       @id
+  status      String
+  kind        String
+  title       String
+  content     String
+  total_score Int?
+  competences Competence[]
+  user        User         @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id     String
+  created_at  DateTime     @default(now())
+  topic       Topic?       @relation(fields: [topic_id], references: [id])
+  topic_id    String?
+
+  @@map("essay-assessments")
+}
+
+model Competence {
+  id                  String          @id
+  name                String?
+  score_achieved      Int?
+  possible_score      Int?
+  essay_assessment    EssayAssessment @relation(fields: [essay_assessment_id], references: [id], onDelete: Cascade)
+  essay_assessment_id String          @map("essay_assessment_id")
+  suggestions         Suggestion[]
+
+  @@map("competences")
+}
+
+model Suggestion {
+  id            String     @id
+  kind          String
+  reference     String
+  reason        String
+  tip           String
+  competence    Competence @relation(fields: [competence_id], references: [id], onDelete: Cascade)
+  competence_id String     @map("competence_id")
+
+  @@map("suggestions")
+}
+
+model Topic {
+  id                String            @id
+  title             String
+  description       String
+  essay_assessments EssayAssessment[]
+  exam_kind         ExamKind
+
+  @@map("topics")
+}
