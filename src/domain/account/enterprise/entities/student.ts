@@ -6,6 +6,7 @@ export interface StudentProps {
   fullname: string;
   email: string;
   cpf: string;
+  phone: string;
   password: string;
   created_at: Date;
 }
@@ -21,6 +22,10 @@ export class Student extends Entity<StudentProps> {
 
   get cpf() {
     return this.props.cpf
+  }
+
+  get phone() {
+    return this.props.phone
   }
 
   get password() {

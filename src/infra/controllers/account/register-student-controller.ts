@@ -10,14 +10,15 @@ export class RegisterStudentController {
 
   async handler(req: Request, res: Response) {
     const { body } = req
-    const { cpf, email, password, fullname } = await z.object({
+    const { cpf, email, password, fullname, phone } = await z.object({
       fullname: z.string(),
       email: z.string().email(),
       cpf: z.string(),
+      phone: z.string(),
       password: z.string(),
     }).parseAsync(body)
     await this.usecase.execute({
-      cpf, email, password, fullname
+      cpf, email, password, fullname, phone
     })
     return res.status(201).json()
   }

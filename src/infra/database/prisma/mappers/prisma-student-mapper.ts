@@ -10,6 +10,7 @@ export class PrismaStudentMapper {
       fullname: student.fullname,
       id: student.id.value,
       password_hash: student.password,
+      phone: student.phone,
       role: 'STUDENT',
       created_at: student.createdAt
     }
@@ -21,7 +22,8 @@ export class PrismaStudentMapper {
       email: student.email,
       fullname: student.fullname,
       password: student.password_hash,
-      created_at: student.created_at
+      created_at: student.created_at,
+      phone: student.phone ?? ""
     }, new EntityId(student.id))
   }
 }

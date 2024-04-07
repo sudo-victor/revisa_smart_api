@@ -4,6 +4,8 @@ export class AiTemplateService {
     Olá, estou preparando uma redação para o ${props.kind} com o tema "${props.title}". Preciso de sua assistência para aprimorar este texto em termos de estrutura, gramática e coesão. Solicito um feedback detalhado que identifique e pontue todos os erros presentes, fornecendo a localização exata e a natureza de cada erro dentro do texto. Por favor, ofereça sugestões práticas e específicas de melhoria para cada erro identificado.
   
     Além disso, com base nos critérios específicos do ${props.kind}, avalie minha redação de forma criteriosa e atribua uma pontuação conforme as normas estabelecidas, explicando detalhadamente os motivos para cada pontuação em cada critério.
+
+    Gostaria que todos os erros fossem apontados, descrevendo exatamente as frases/palavras que errei no texto, deixe muito descritivo. Sempre que for corrigir algo na redação, sempre aponte qual frase/palavra/paragrafo que está errado
   
     Eu gostaria que a resposta gerado fosse apenas um json, com o seguinte formato: {
       "essay_assessment": {

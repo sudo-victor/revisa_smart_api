@@ -1,18 +1,17 @@
 import { Router } from "express"
 
-import { RedisQueue } from "../../queue/redis/redis-queue"
-import { RegisterStudentController } from "../../controllers/account/register-student-controller"
-import { RegisterStudentUsecase } from "@/domain/account/application/usecases/register-student-usecase"
-import { PrismaStudentRepository } from "../../database/prisma/repositories/prisma-student-repository"
-import { Hasher } from "../../cryptography/hasher"
+import { MakeStudentSignin } from "@/infra/factories/make-student-signin"
+import { MakeRegisterStudent } from "@/infra/factories/make-register-student"
+import { MakeValidateUserByPhone } from "@/infra/factories/make-validate-user-by-phone"
 
-const studentRepository = new PrismaStudentRepository()
-const hasher = new Hasher()
-const registerStudentUsecase = new RegisterStudentUsecase(studentRepository, hasher, RedisQueue.getInstance())
-const registerStudentController = new RegisterStudentController(registerStudentUsecase)
+const registerStudent = MakeRegisterStudent.make()
+const studentSignin = MakeStudentSignin.make()
+const validateUserByPhone = MakeValidateUserByPhone.make()
 
 const studentRoutes = Router()
 
-studentRoutes.post("/", registerStudentController.handler.bind(registerStudentController))
+studentRoutes.post("/", registerStudent.handler.bind(registerStudent))
+studentRoutes.post("/auth", studentSignin.handler.bind(studentSignin))
+studentRoutes.get("/of/:phone", validateUserByPhone.handler.bind(validateUserByPhone))
 
 export { studentRoutes }

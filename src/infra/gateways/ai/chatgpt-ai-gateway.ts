@@ -1,4 +1,4 @@
-import OpenAI from 'openai'; // Importa o SDK da OpenAI.
+import OpenAI from 'openai';
 
 import { AiGateway } from "@/domain/essay/application/gateways/ai-gateway";
 

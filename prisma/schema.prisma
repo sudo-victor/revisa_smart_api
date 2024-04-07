@@ -30,6 +30,7 @@ model User {
   fullname          String
   email             String            @unique
   cpf               String
+  phone             String?
   password_hash     String
   created_at        DateTime          @default(now())
   essay_assessments EssayAssessment[]
