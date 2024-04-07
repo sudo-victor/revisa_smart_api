@@ -7,7 +7,7 @@ import { MockAiGateway } from "@/infra/gateways/ai/mock-ai-gateway";
 import { ChatptAiGateway } from "@/infra/gateways/ai/chatgpt-ai-gateway";
 
 const queue = RedisQueue.getInstance()
-const aiGateway = new ChatptAiGateway()
+const aiGateway = new MockAiGateway()
 const essayAssessmentRepository = new PrismaEssayAssessmentRepository()
 const competenceRepository = new PrismaCompetenceRepository()
 const processEssayAssessmentUsecase = new ProcessEssayAssessmentUsecase(
