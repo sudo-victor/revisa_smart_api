@@ -12,6 +12,6 @@ const studentRoutes = Router()
 
 studentRoutes.post("/", registerStudent.handler.bind(registerStudent))
 studentRoutes.post("/auth", studentSignin.handler.bind(studentSignin))
-studentRoutes.get("/of/:phone", validateUserByPhone.handler.bind(validateUserByPhone))
+studentRoutes.get("/exists", validateUserByPhone.handler.bind(validateUserByPhone))
 
 export { studentRoutes }

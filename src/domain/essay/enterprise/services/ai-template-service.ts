@@ -39,4 +39,16 @@ export class AiTemplateService {
     ${props.content}
   `
   }
+
+  static getEnhanceWritingResourceQuestion(props: { theme: string, amount: number }) {
+    return `
+    Estou escrevendo uma redação sobre o tema "${props.theme}". Para enriquecer meu repertório na redação, preciso de ${props.amount} referências específicas. Poderia me fornecer, com base nesse tema, uma lista de referências históricas, falas de filmes, contextos de filmes, trechos de livros e citações?
+    Eu gostaria que a resposta gerado fosse apenas um json, com o seguinte formato:
+    {
+      kind: 'quote' | 'movie' | 'book' | 'historical_fact',
+      title: string,
+      value: string
+    }[]
+    `
+  }
 }

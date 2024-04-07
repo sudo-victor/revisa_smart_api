@@ -34,6 +34,7 @@ model User {
   password_hash     String
   created_at        DateTime          @default(now())
   essay_assessments EssayAssessment[]
+  writing_resources WritingResource[]
 
   @@map("users")
 }
@@ -87,4 +88,33 @@ model Topic {
   exam_kind         ExamKind
 
   @@map("topics")
+}
+
+model WritingResource {
+  id                  String              @id
+  status              String              @default("pending")
+  theme               String
+  author              User                @relation(fields: [author_id], references: [id])
+  author_id           String
+  resource_references ResourceReference[]
+
+  @@map("writing-resources")
+}
+
+enum ResourceReferenceKind {
+  QUOTE
+  BOOK
+  MOVIE
+  HISTORICAL_FACT
+}
+
+model ResourceReference {
+  id                  String                @id
+  kind                ResourceReferenceKind
+  title               String
+  value               String
+  writing_resource    WritingResource       @relation(fields: [writing_resource_id], references: [id])
+  writing_resource_id String
+
+  @@map("resource-references")
 }

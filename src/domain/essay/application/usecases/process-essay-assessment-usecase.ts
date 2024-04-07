@@ -1,14 +1,9 @@
+import { sleep } from "@/core/utils/sleep"
 import { Competence, CompetenceCreate } from "../../enterprise/entities/competence"
 import { AiTemplateService } from "../../enterprise/services/ai-template-service"
 import { AiGateway } from "../gateways/ai-gateway"
 import { CompetenceRepository } from "../repositories/competence-repository"
 import { EssayAssessmentRepository } from "../repositories/essay-assessment-repository"
-
-function sleep(ms: number) {
-  return new Promise((resolve) => {
-    setInterval(() => { resolve(null) }, ms)
-  })
-}
 
 export class ProcessEssayAssessmentUsecase {
   constructor(

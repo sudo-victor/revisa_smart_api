@@ -9,10 +9,10 @@ export class ValidateUserByPhoneController {
   ) {}
 
   async handler(req: Request, res: Response) {
-    const { params } = req
+    const { query } = req
     const { phone } = await z.object({
       phone: z.string()
-    }).parseAsync(params)
+    }).parseAsync(query)
     const result = await this.usecase.execute({ phone })
     return res.status(200).json({ result })
   }

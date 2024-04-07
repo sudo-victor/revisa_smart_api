@@ -18,9 +18,7 @@ export class RequestEvaluateEssayController {
       topic_id: z.string().optional(),
     }).parse(body)
     const result = await this.usecase.execute({ content, kind, title, student_id, topic_id })
-    return res.status(200).json({
-      result
-    })
+    return res.status(202).json({ result })
   }
 
 }

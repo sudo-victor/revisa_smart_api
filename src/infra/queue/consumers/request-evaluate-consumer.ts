@@ -9,7 +9,7 @@ export class RequestEvaluateConsumer {
   ) { }
 
   async hander() {
-    this.queue.consume(EvaluateEssayEvent.name, async (data: string) => {
+    this.queue.consume(EvaluateEssayEvent.name, async (data: string, event: string) => {
       try {
         const input = JSON.parse(data)
         await this.processEssayAssessmentUsecase.execute({
