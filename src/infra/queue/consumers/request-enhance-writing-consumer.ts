@@ -12,6 +12,7 @@ export class RequestEnhanceWritingConsumer {
     this.queue.consume(EnhanceWritingEvent.name, async (data: string) => {
       try {
         const input = JSON.parse(data)
+        if (input.name !== EnhanceWritingEvent.name) return
         await this.processEnhanceWritingResourcesUsecase.execute({
           id: input.id
         })

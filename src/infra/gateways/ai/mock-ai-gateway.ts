@@ -4,7 +4,33 @@ import { ResourceReferenceProps } from "@/domain/essay/enterprise/entities/resou
 export class MockAiGateway implements AiGateway {
   enhanceWritingResources(question: string): Promise<{ references: ResourceReferenceProps[]; }> {
     return {
-      references: []
+      references: [
+        {
+          kind: 'historical_fact',
+          title: 'Ada Lovelace',
+          value: 'Considerada a primeira programadora da história, Ada Lovelace escreveu o primeiro algoritmo destinado a ser processado por uma máquina no século XIX.'
+        },
+        {
+          kind: 'book',
+          title: 'Lean In: Women, Work, and the Will to Lead',
+          value: 'Escrito por Sheryl Sandberg, COO do Facebook, o livro discute os desafios que as mulheres enfrentam no local de trabalho e como superá-los.'
+        },
+        {
+          kind: 'movie',
+          title: 'Estrelas Além do Tempo',
+          value: 'Baseado em uma história real, o filme destaca o papel fundamental de três mulheres afro-americanas na NASA durante a corrida espacial.'
+        },
+        {
+          kind: 'quote',
+          title: 'Grace Hopper',
+          value: '"O mais difícil de qualquer problema é encontrar a resposta certa. Porém, o mais complicado é fazer as perguntas corretas."'
+        },
+        {
+          kind: 'historical_fact',
+          title: 'Susan Wojcicki',
+          value: 'CEO do YouTube desde 2014, Wojcicki é uma das primeiras funcionárias do Google, contribuindo expressivamente para a expansão e sucesso da empresa na internet.'
+        }
+      ]
     } as any
   }
 

@@ -12,6 +12,7 @@ export class RequestEvaluateConsumer {
     this.queue.consume(EvaluateEssayEvent.name, async (data: string, event: string) => {
       try {
         const input = JSON.parse(data)
+        if (input.name !== EvaluateEssayEvent.name) return
         await this.processEssayAssessmentUsecase.execute({
           id: input.id
         })

@@ -11,7 +11,7 @@ import { PrismaWritingResourceRepository } from "@/infra/database/prisma/reposit
 import { PrismaResourceReferenceRepository } from "@/infra/database/prisma/repositories/prisma-resource-reference-repository";
 
 const queue = RedisQueue.getInstance()
-const aiGateway = new ChatptAiGateway()
+const aiGateway = new MockAiGateway()
 
 const essayAssessmentRepository = new PrismaEssayAssessmentRepository()
 const competenceRepository = new PrismaCompetenceRepository()
@@ -30,4 +30,4 @@ const processEnhanceWritingResourcesUsecase = new ProcessEnhanceWritingResources
 )
 
 new RequestEnhanceWritingConsumer(queue, processEnhanceWritingResourcesUsecase).hander()
-// new RequestEvaluateConsumer(queue, processEssayAssessmentUsecase).hander()
+new RequestEvaluateConsumer(queue, processEssayAssessmentUsecase).hander()
