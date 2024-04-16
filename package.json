@@ -2,6 +2,7 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.6",
+    "@types/multer": "^1.4.11",
     "@types/node": "^20.11.30",
     "prisma": "5.11.0",
     "typescript": "^5.4.2"
@@ -14,7 +15,9 @@
     "express": "^5.0.0-beta.2",
     "ioredis": "^5.3.2",
     "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
     "openai": "^4.29.2",
+    "tesseract.js": "^5.0.5",
     "tsup": "^8.0.2",
     "tsx": "^4.7.1",
     "zod": "^3.22.4"

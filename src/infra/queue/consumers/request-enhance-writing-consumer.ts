@@ -8,7 +8,7 @@ export class RequestEnhanceWritingConsumer {
     private processEnhanceWritingResourcesUsecase: ProcessEnhanceWritingResourcesUsecase
   ) { }
 
-  async hander() {
+  async handler() {
     this.queue.consume(EnhanceWritingEvent.name, async (data: string) => {
       try {
         const input = JSON.parse(data)

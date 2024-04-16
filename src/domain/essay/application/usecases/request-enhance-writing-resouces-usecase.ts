@@ -13,6 +13,7 @@ export class RequestEnhanceWritingResourcesUsecase {
   async execute(props: Input): Promise<Output> {
     const resource = WritingResource.create({
       theme: props.theme,
+      thesis: props.thesis,
       author_id: new EntityId(props.author_id)
     })
     resource.register(async (event: DomainEvent) => {
@@ -28,6 +29,7 @@ export class RequestEnhanceWritingResourcesUsecase {
 
 type Input = {
   theme: string
+  thesis: string
   author_id: string
 }
 

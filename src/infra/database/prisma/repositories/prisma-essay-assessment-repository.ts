@@ -38,7 +38,6 @@ export class PrismaEssayAssessmentRepository extends EssayAssessmentRepository {
     const essay = await prismaClient.essayAssessment.findUnique({
       where: { id },
     })
-
     return essay ? PrismaEssayAssessmentMapper.toDomain(essay as any) : null
   }
 

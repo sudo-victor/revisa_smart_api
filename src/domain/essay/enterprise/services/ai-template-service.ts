@@ -40,15 +40,27 @@ export class AiTemplateService {
   `
   }
 
-  static getEnhanceWritingResourceQuestion(props: { theme: string, amount: number }) {
+  static getEnhanceWritingResourceQuestion(props: { theme: string, thesis: string, amount: number }) {
     return `
-    Estou escrevendo uma redação sobre o tema "${props.theme}". Para enriquecer meu repertório na redação, preciso de ${props.amount} referências específicas. Poderia me fornecer, com base nesse tema, uma lista de referências históricas, falas de filmes, contextos de filmes, trechos de livros e citações?
+    Estou escrevendo uma redação sobre o tema "${props.theme}" ${props.thesis ? `onde minha tese é ${props.thesis}` : ""}. Para enriquecer meu repertório na redação, preciso de ${props.amount} referências específicas. Poderia me fornecer, com base nesse tema, uma lista de referências históricas, falas de filmes, contextos de filmes, trechos de livros e citações?
     Eu gostaria que a resposta gerado fosse apenas um json, com o seguinte formato:
     {
       kind: 'quote' | 'movie' | 'book' | 'historical_fact',
       title: string,
       value: string
     }[]
+    `
+  }
+
+  static getAdjustExtractedTextQuestion(props: {content: string}) {
+    return `
+    Olá, ChatGPT! Eu usei um sistema de OCR para extrair o texto de uma redação escrita por um aluno, mas o sistema retornou algumas partes do texto que parecem estranhas ou incorretas devido a erros de reconhecimento.
+    Poderia me ajudar a corrigir apenas os erros gerados pelo OCR, mas mantendo quaisquer erros originais feitos pelo estudante?
+    
+    Gostaria que a resposta fosse apenas o texto corrigido, sem nenhum comentário adicional ou explicação. Muito obrigado pela ajuda!
+    
+    Aqui está o texto:
+    ${props.content}
     `
   }
 }

@@ -9,6 +9,9 @@ import { RequestEnhanceWritingConsumer } from "./request-enhance-writing-consume
 import { ProcessEnhanceWritingResourcesUsecase } from "@/domain/essay/application/usecases/process-enhance-writing-resources-usecase";
 import { PrismaWritingResourceRepository } from "@/infra/database/prisma/repositories/prisma-writing-resource-repository";
 import { PrismaResourceReferenceRepository } from "@/infra/database/prisma/repositories/prisma-resource-reference-repository";
+import { RequestExtractFromImageConsumer } from "./request-text-capture-from-image-consumer";
+import { ProcessExtractTextFromImageUsecase } from "@/domain/essay/application/usecases/process-extract-text-from-image-usecase";
+import { PrismaTextCaptureRecordRepository } from "@/infra/database/prisma/repositories/prisma-text-capture-record-repository";
 
 const queue = RedisQueue.getInstance()
 const aiGateway = new MockAiGateway()
@@ -29,5 +32,12 @@ const processEnhanceWritingResourcesUsecase = new ProcessEnhanceWritingResources
   aiGateway,
 )
 
-new RequestEnhanceWritingConsumer(queue, processEnhanceWritingResourcesUsecase).hander()
-new RequestEvaluateConsumer(queue, processEssayAssessmentUsecase).hander()
+const textCaptureRecordRepository = new PrismaTextCaptureRecordRepository()
+const processExtractTextFromImageUsecase = new ProcessExtractTextFromImageUsecase(
+  textCaptureRecordRepository,
+  aiGateway
+)
+
+new RequestEnhanceWritingConsumer(queue, processEnhanceWritingResourcesUsecase).handler()
+new RequestEvaluateConsumer(queue, processEssayAssessmentUsecase).handler()
+new RequestExtractFromImageConsumer(queue, processExtractTextFromImageUsecase).handler()

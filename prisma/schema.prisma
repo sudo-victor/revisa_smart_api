@@ -94,6 +94,7 @@ model WritingResource {
   id                  String              @id
   status              String              @default("pending")
   theme               String
+  thesis              String?
   author              User                @relation(fields: [author_id], references: [id])
   author_id           String
   resource_references ResourceReference[]
@@ -105,6 +106,7 @@ enum ResourceReferenceKind {
   QUOTE
   BOOK
   MOVIE
+  TV_SHOW
   HISTORICAL_FACT
 }
 
@@ -117,4 +119,14 @@ model ResourceReference {
   writing_resource_id String
 
   @@map("resource-references")
+}
+
+model TextCaptureRecord {
+  id         String   @id
+  status     String
+  content    String?
+  photo_path String?
+  created_at DateTime @default(now())
+
+  @@map("text-capture-records")
 }

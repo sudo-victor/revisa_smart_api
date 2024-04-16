@@ -21,6 +21,7 @@ export class ProcessEnhanceWritingResourcesUsecase {
     if (!writingResource) throw new Error("Request to enhance writing resources not found")
     const question = AiTemplateService.getEnhanceWritingResourceQuestion({
       theme: writingResource.theme,
+      thesis: writingResource.thesis,
       amount: 5
     })
     const { references: answer } = await this.aiGateway.enhanceWritingResources(question)

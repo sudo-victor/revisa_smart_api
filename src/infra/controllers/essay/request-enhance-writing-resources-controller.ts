@@ -10,11 +10,12 @@ export class RequestEnhanceWritingResourcesController {
 
   async handler(req: Request, res: Response) {
     const { body } = req
-    const { theme, author_id } = await z.object({
+    const { theme, thesis, author_id } = await z.object({
       theme: z.string(),
+      thesis: z.string(),
       author_id: z.string()
     }).parseAsync(body)
-    const result = await this.usecase.execute({ theme, author_id })
+    const result = await this.usecase.execute({ theme, thesis, author_id })
     return res.status(202).json({ result })
   }
 }

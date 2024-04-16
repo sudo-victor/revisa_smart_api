@@ -6,8 +6,13 @@ import { RedisQueue } from "../queue/redis/redis-queue"
 export class MakeRequestEnhanceWritingResource {
   static make() {
     const writingResourceRepository = new PrismaWritingResourceRepository()
-    const requestEnhanceWritingResourcesUsecase = new RequestEnhanceWritingResourcesUsecase(writingResourceRepository, RedisQueue.getInstance())
-    const requestEnhanceWritingResourcesController = new RequestEnhanceWritingResourcesController(requestEnhanceWritingResourcesUsecase)
+    const requestEnhanceWritingResourcesUsecase = new RequestEnhanceWritingResourcesUsecase(
+      writingResourceRepository,
+      RedisQueue.getInstance()
+    )
+    const requestEnhanceWritingResourcesController = new RequestEnhanceWritingResourcesController(
+      requestEnhanceWritingResourcesUsecase
+    )
     return requestEnhanceWritingResourcesController
   }
 }

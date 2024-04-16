@@ -7,6 +7,7 @@ import { EnhanceWritingEvent } from "../events/enhance-writing-event";
 
 export interface WritingResourceProps {
   theme: string;
+  thesis: string;
   author_id: EntityId
   status: WritingResourceStatus,
   references: ResourceReference[]
@@ -14,6 +15,7 @@ export interface WritingResourceProps {
 
 export interface WritingResourceCreateProps {
   theme: string;
+  thesis: string;
   author_id: EntityId
   status: WritingResourceStatusOptions
   references: ResourceReference[]
@@ -22,6 +24,10 @@ export interface WritingResourceCreateProps {
 export class WritingResource extends Entity<WritingResourceProps> {
   get theme() {
     return this.props.theme
+  }
+
+  get thesis() {
+    return this.props.thesis
   }
 
   get authorId() {

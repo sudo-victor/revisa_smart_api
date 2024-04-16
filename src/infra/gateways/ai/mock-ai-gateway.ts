@@ -2,6 +2,10 @@ import { AiGateway } from "@/domain/essay/application/gateways/ai-gateway";
 import { ResourceReferenceProps } from "@/domain/essay/enterprise/entities/resource-reference";
 
 export class MockAiGateway implements AiGateway {
+  async adjustExtractedText(question: string): Promise<{ content: string; }> {
+    return { content: "Adjusted text" }
+  }
+
   enhanceWritingResources(question: string): Promise<{ references: ResourceReferenceProps[]; }> {
     return {
       references: [

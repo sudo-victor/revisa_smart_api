@@ -10,6 +10,24 @@ export class ChatptAiGateway implements AiGateway {
     this.openai = new OpenAI();
   }
 
+  async adjustExtractedText(question: string): Promise<{ content: string; }> {
+    const { choices } = await this.openai.chat.completions.create({
+      messages: [
+        {
+          role: "system",
+          content: "You are an educational assistant designed to help students enhance their essays for academic standards. Provide detailed, constructive feedback, identify exactly where errors are in the text, and offer clear, actionable suggestions for each identified issue. In addition, based on the specific criteria of the type of essay (e.g., ENEM), critically evaluate the essay and assign a score according to established standards, explaining the reasons for the scores for each criterion."
+        },
+        {
+          role: "user",
+          content: question
+        },
+      ],
+      model: "gpt-4-0125-preview",
+    });
+    const result = choices[0]?.message.content ?? ""
+    return { content: result }
+  }
+
   async enhanceWritingResources(question: string): Promise<{ references: ResourceReferenceProps[]; }> {
     const { choices } = await this.openai.chat.completions.create({
         messages: [
