@@ -133,3 +133,12 @@ model TextCaptureRecord {
 
   @@map("text-capture-records")
 }
+
+model ApiKey {
+  id         String   @id
+  nickname   String
+  secret     String
+  created_at DateTime @default(now())
+
+  @@map("api-key")
+}
