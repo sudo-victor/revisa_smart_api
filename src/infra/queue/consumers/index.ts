@@ -40,4 +40,4 @@ const processExtractTextFromImageUsecase = new ProcessExtractTextFromImageUsecas
 
 new RequestEnhanceWritingConsumer(queue, processEnhanceWritingResourcesUsecase).handler()
 new RequestEvaluateConsumer(queue, processEssayAssessmentUsecase).handler()
-new RequestExtractFromImageConsumer(queue, processExtractTextFromImageUsecase).handler()
+// new RequestExtractFromImageConsumer(queue, processExtractTextFromImageUsecase).handler()

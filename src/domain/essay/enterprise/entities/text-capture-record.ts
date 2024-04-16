@@ -40,11 +40,10 @@ export class TextCaptureRecord extends Entity<TextCaptureRecordProps> {
     return textCaptureRecord
   }
 
-  process(image_buffer: Buffer) {
+  process() {
     this.status.process()
     this.notify(new ExtractTextFromImageEvent(
-      this.id.value,
-      image_buffer
+      this.id.value
     ))
   }
 
