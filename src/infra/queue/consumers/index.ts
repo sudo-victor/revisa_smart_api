@@ -12,6 +12,7 @@ import { PrismaResourceReferenceRepository } from "@/infra/database/prisma/repos
 import { RequestExtractFromImageConsumer } from "./request-text-capture-from-image-consumer";
 import { ProcessExtractTextFromImageUsecase } from "@/domain/essay/application/usecases/process-extract-text-from-image-usecase";
 import { PrismaTextCaptureRecordRepository } from "@/infra/database/prisma/repositories/prisma-text-capture-record-repository";
+import { S3Storage } from "@/infra/storage/s3-storage";
 
 const queue = RedisQueue.getInstance()
 const aiGateway = new MockAiGateway()
@@ -32,12 +33,14 @@ const processEnhanceWritingResourcesUsecase = new ProcessEnhanceWritingResources
   aiGateway,
 )
 
+const storage = new S3Storage()
 const textCaptureRecordRepository = new PrismaTextCaptureRecordRepository()
 const processExtractTextFromImageUsecase = new ProcessExtractTextFromImageUsecase(
   textCaptureRecordRepository,
-  aiGateway
+  aiGateway,
+  storage
 )
 
 new RequestEnhanceWritingConsumer(queue, processEnhanceWritingResourcesUsecase).handler()
 new RequestEvaluateConsumer(queue, processEssayAssessmentUsecase).handler()
-// new RequestExtractFromImageConsumer(queue, processExtractTextFromImageUsecase).handler()
+new RequestExtractFromImageConsumer(queue, processExtractTextFromImageUsecase).handler()

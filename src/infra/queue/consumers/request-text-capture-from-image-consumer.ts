@@ -14,8 +14,7 @@ export class RequestExtractFromImageConsumer {
         const input = JSON.parse(data)
         if (input.name !== ExtractTextFromImageEvent.name) return
         await this.processExtractTextFromImageUsecase.execute({
-          id: input.id,
-          image_buffer: input.image_buffer
+          id: input.id
         })
       } catch (err: any) {
         console.log(err.message)
