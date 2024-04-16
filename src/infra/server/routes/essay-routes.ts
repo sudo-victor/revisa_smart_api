@@ -8,6 +8,7 @@ import { MakeGetWritingResourceDetails } from "@/infra/factories/make-get-writin
 import { MakeRequestExtractTextFromImage } from "@/infra/factories/make-request-extract-text-from-image"
 import { uploadMiddleware } from "@/infra/middlewares/storage/upload-middleware"
 import { MakeGetTextCaptureRecordById } from "@/infra/factories/make-get-text-capture-record-by-id"
+import { JwtAutorizationMiddleware } from "@/infra/middlewares/autorization/jwt-autorization-middleware"
 
 const requestEvaluateEssay = RequestEvaluateEssay.make()
 const requestEnhanceWritingResource = MakeRequestEnhanceWritingResource.make()
@@ -19,6 +20,7 @@ const getTextCaptureRecord = MakeGetTextCaptureRecordById.make()
 
 const essayRoutes = Router()
 
+essayRoutes.use(JwtAutorizationMiddleware.handler)
 essayRoutes.post("/evaluate", requestEvaluateEssay.handler.bind(requestEvaluateEssay))
 essayRoutes.post("/extract/from/image/for/:id/student", uploadMiddleware.single('file'), requestExtractTextFromImage.handler.bind(requestExtractTextFromImage))
 essayRoutes.get("/extract/:id", getTextCaptureRecord.handler.bind(getTextCaptureRecord))
