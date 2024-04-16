@@ -4,15 +4,20 @@ import { Storage } from "../storage/storage";
 import { TextCaptureRecord } from "../../enterprise/entities/text-capture-record";
 import { TextCaptureRecordRepository } from "../repositories/text-capture-record-repository";
 import { FilenameService } from "../../enterprise/services/filename-service";
+import { EntityId } from "@/core/domain/entity-id";
+import { StudentRepostory } from "@/domain/account/application/repositories/student-repository";
 
 export class RequestExtractTextFromImageUsecase {
   constructor(
     private textCaptureRecordRepository: TextCaptureRecordRepository,
+    private studentRepository: StudentRepostory,
     private queue: Queue,
     private storage: Storage
   ) {}
 
   async execute(props: Input): Promise<Output> {
+    const student = await this.studentRepository.findById(new EntityId(props.author_id))
+    if (!student) throw new Error('Student not found')
     const filename = FilenameService.generate(props.mimetype)
     await this.storage.upload({
       filename: filename,
@@ -20,7 +25,8 @@ export class RequestExtractTextFromImageUsecase {
       content: props.file_as_buffer,
     })
     const textCaptureRecord = TextCaptureRecord.create({
-      photo_path: filename
+      photo_path: filename,
+      author_id: new EntityId(props.author_id)
     })
     textCaptureRecord.register(async (event: DomainEvent) => {
       await this.queue.publish(event.name, JSON.stringify(event))
@@ -33,7 +39,8 @@ export class RequestExtractTextFromImageUsecase {
 
 type Input = {
   mimetype: string
-  file_as_buffer: Buffer
+  author_id: string,
+  file_as_buffer: Buffer,
 }
 
 type Output = {

@@ -3,13 +3,16 @@ import { RequestExtractTextFromImageController } from "../controllers/essay/requ
 import { RedisQueue } from "../queue/redis/redis-queue";
 import { PrismaTextCaptureRecordRepository } from "../database/prisma/repositories/prisma-text-capture-record-repository";
 import { S3Storage } from "../storage/s3-storage";
+import { PrismaStudentRepository } from "../database/prisma/repositories/prisma-student-repository";
 
 export class MakeRequestExtractTextFromImage {
   static make() {
     const storage = new S3Storage()
     const textCaptureRecordRepository = new PrismaTextCaptureRecordRepository()
+    const studentRepository = new PrismaStudentRepository()
     const extractTextFromImageUsecase = new RequestExtractTextFromImageUsecase(
       textCaptureRecordRepository,
+      studentRepository,
       RedisQueue.getInstance(),
       storage
     )

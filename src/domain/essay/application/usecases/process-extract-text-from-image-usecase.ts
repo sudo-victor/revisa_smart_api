@@ -22,7 +22,6 @@ export class ProcessExtractTextFromImageUsecase {
     const { data: { text: content }} = await worker.recognize(
       FilenameService.toS3Url(textCaptureRecord.photoPath)
     );
-    console.log(content)
     await worker.terminate();
     const question = AiTemplateService.getAdjustExtractedTextQuestion({ content });
     const answer = await this.aiGateway.adjustExtractedText(question);

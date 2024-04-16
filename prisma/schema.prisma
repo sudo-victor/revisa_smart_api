@@ -25,16 +25,17 @@ enum ExamKind {
 }
 
 model User {
-  id                String            @id
-  role              UserRole
-  fullname          String
-  email             String            @unique
-  cpf               String
-  phone             String?
-  password_hash     String
-  created_at        DateTime          @default(now())
-  essay_assessments EssayAssessment[]
-  writing_resources WritingResource[]
+  id                  String              @id
+  role                UserRole
+  fullname            String
+  email               String              @unique
+  cpf                 String
+  phone               String?
+  password_hash       String
+  created_at          DateTime            @default(now())
+  essay_assessments   EssayAssessment[]
+  writing_resources   WritingResource[]
+  text_capture_record TextCaptureRecord[]
 
   @@map("users")
 }
@@ -127,6 +128,8 @@ model TextCaptureRecord {
   content    String?
   photo_path String?
   created_at DateTime @default(now())
+  author     User?    @relation(fields: [author_id], references: [id])
+  author_id  String?
 
   @@map("text-capture-records")
 }

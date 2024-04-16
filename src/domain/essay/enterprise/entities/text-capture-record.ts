@@ -9,10 +9,10 @@ export interface TextCaptureRecordProps {
   content: string | null
   photo_path: string | null
   created_at: Date
+  author_id: EntityId
 }
 
 export class TextCaptureRecord extends Entity<TextCaptureRecordProps> {
-
   get content() {
     return this.props.content
   }
@@ -27,6 +27,10 @@ export class TextCaptureRecord extends Entity<TextCaptureRecordProps> {
 
   get status() {
     return this.props.status
+  }
+
+  get authorId() {
+    return this.props.author_id
   }
 
   static create(props: Optional<TextCaptureRecordProps, 'status' | 'photo_path' | 'created_at' | 'content'>, id?: EntityId) {

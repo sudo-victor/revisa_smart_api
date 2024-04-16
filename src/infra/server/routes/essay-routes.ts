@@ -20,7 +20,7 @@ const getTextCaptureRecord = MakeGetTextCaptureRecordById.make()
 const essayRoutes = Router()
 
 essayRoutes.post("/evaluate", requestEvaluateEssay.handler.bind(requestEvaluateEssay))
-essayRoutes.post("/extract/from/image", uploadMiddleware.single('file'), requestExtractTextFromImage.handler.bind(requestExtractTextFromImage))
+essayRoutes.post("/extract/from/image/for/:id/student", uploadMiddleware.single('file'), requestExtractTextFromImage.handler.bind(requestExtractTextFromImage))
 essayRoutes.get("/extract/:id", getTextCaptureRecord.handler.bind(getTextCaptureRecord))
 essayRoutes.post("/themes/resources", requestEnhanceWritingResource.handler.bind(requestEnhanceWritingResource))
 essayRoutes.get("/themes/resources/:id", getWritingResourceDetails.handler.bind(getWritingResourceDetails))

@@ -10,7 +10,8 @@ export class PrismaTextCaptureRecordMapper {
       status: textCaptureRecord.status.toValue(),
       content: textCaptureRecord.content,
       created_at: textCaptureRecord.createdAt,
-      photo_path: textCaptureRecord.photoPath
+      photo_path: textCaptureRecord.photoPath,
+      author_id: textCaptureRecord.authorId.value
     }
   }
 
@@ -20,6 +21,7 @@ export class PrismaTextCaptureRecordMapper {
         status: new TextCaptureRecordStatus(textCaptureRecord.status as any),
         photo_path: textCaptureRecord.photo_path,
         created_at: textCaptureRecord.created_at,
+        author_id: new EntityId(textCaptureRecord.author_id ?? "")
       }, new EntityId(textCaptureRecord.id))
   }
 }
