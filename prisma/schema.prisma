@@ -36,6 +36,7 @@ model User {
   essay_assessments   EssayAssessment[]
   writing_resources   WritingResource[]
   text_capture_record TextCaptureRecord[]
+  subscription        Subscription[]
 
   @@map("users")
 }
@@ -141,4 +142,16 @@ model ApiKey {
   created_at DateTime @default(now())
 
   @@map("api-key")
+}
+
+model Subscription {
+  id          String  @id
+  customer_id String?
+  sub_id      String?
+  status      String
+  user        User    @relation(fields: [user_id], references: [id])
+  user_id     String
+  gateway     String
+
+  @@map("subscriptions")
 }

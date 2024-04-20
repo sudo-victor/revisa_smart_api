@@ -3,6 +3,7 @@ import { Student } from "@/domain/account/enterprise/entities/student";
 import { prismaClient } from "../client";
 import { PrismaStudentMapper } from "../mappers/prisma-student-mapper";
 import { EntityId } from "@/core/domain/entity-id";
+import { StudentCreatedEvent } from "@/domain/account/enterprise/events/student-created-event";
 
 export class PrismaStudentRepository implements StudentRepostory {
   async findByPhone(phone: string): Promise<Student | null> {
@@ -30,5 +31,6 @@ export class PrismaStudentRepository implements StudentRepostory {
     await prismaClient.user.create({
       data: PrismaStudentMapper.toPrisma(student)
     })
+    student.notify(new StudentCreatedEvent(student.id.value))
   }
 }
