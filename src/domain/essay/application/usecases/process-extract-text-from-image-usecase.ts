@@ -3,7 +3,7 @@ import { TextCaptureRecordRepository } from "../repositories/text-capture-record
 import { AiTemplateService } from "../../enterprise/services/ai-template-service";
 import { AiGateway } from "../gateways/ai-gateway";
 import { sleep } from "@/core/utils/sleep";
-import { Storage } from "../storage/storage";
+import { Storage } from "../../../../core/storage/storage";
 import { FilenameService } from "../../enterprise/services/filename-service";
 
 export class ProcessExtractTextFromImageUsecase {

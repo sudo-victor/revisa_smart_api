@@ -63,4 +63,35 @@ export class AiTemplateService {
     ${props.content}
     `
   }
+
+  static getQuizFromFileQuestion() {
+    return `
+    Instrução: Analise o documento fornecido e crie um quiz baseado em seu conteúdo. O quiz deve incluir 10 questões, com dificuldades variando de 0 (muito fácil) a 5 (muito difícil), distribuídas equilibradamente. Cada questão deve ter quatro opções de resposta, com apenas uma resposta correta. As opções de resposta devem ser menos óbvias e mais desafiadoras.
+
+    Formato de saída esperado:
+    {
+      "title": "Quiz de Conhecimentos Gerais",
+      "questions": [
+        {
+          "prompt": "Exemplo: Qual é a capital da França?",
+          "options": "[
+            'Madri',
+            'Lyon',
+            'Paris',
+            'Nice'
+          ]",
+          "correct_answer": "Paris",
+          "difficulty": 2
+        }
+      ]
+    }
+
+    Requisitos:
+    - Cada questão deve estar diretamente relacionada ao conteúdo do documento.
+    - Forneça quatro opções para cada questão, garantindo que sejam inteligentes e desafiadoras.
+    - Marque claramente a resposta correta usando um índice.
+    - Inclua um nível de dificuldade para cada questão, e assegure uma distribuição equilibrada das dificuldades ao longo do quiz.
+    - Retorne a saída no formato JSON, conforme mostrado no exemplo de formato de saída.
+    `
+  }
 }

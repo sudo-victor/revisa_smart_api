@@ -1,4 +1,4 @@
-import { Storage } from "@/domain/essay/application/storage/storage";
+import { Storage } from "@/core/storage/storage";
 import { S3Client, PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3"
 
 export class S3Storage implements Storage {

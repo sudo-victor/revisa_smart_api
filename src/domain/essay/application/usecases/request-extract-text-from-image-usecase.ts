@@ -1,6 +1,6 @@
 import DomainEvent from "@/core/domain/domain-event"
 import { Queue } from "../queue/queue"
-import { Storage } from "../storage/storage";
+import { Storage } from "../../../../core/storage/storage";
 import { TextCaptureRecord } from "../../enterprise/entities/text-capture-record";
 import { TextCaptureRecordRepository } from "../repositories/text-capture-record-repository";
 import { FilenameService } from "../../enterprise/services/filename-service";

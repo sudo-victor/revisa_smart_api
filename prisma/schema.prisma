@@ -37,6 +37,8 @@ model User {
   writing_resources   WritingResource[]
   text_capture_record TextCaptureRecord[]
   subscription        Subscription[]
+  quizzes             Quiz[]
+  answers             Answer[]
 
   @@map("users")
 }
@@ -154,4 +156,53 @@ model Subscription {
   gateway     String
 
   @@map("subscriptions")
+}
+
+model QuizRequest {
+  id         String   @id
+  status     String
+  file_path  String
+  created_at DateTime @default(now())
+  quiz       Quiz?    @relation(fields: [quiz_id], references: [id])
+  quiz_id    String
+
+  @@map("quiz-requests")
+}
+
+model Quiz {
+  id           String        @id
+  title        String
+  creator      User          @relation(fields: [creator_id], references: [id])
+  creator_id   String
+  question     Question[]
+  created_at   DateTime      @default(now())
+  quiz_request QuizRequest[]
+
+  @@map("quizzes")
+}
+
+model Question {
+  id             String   @id
+  prompt         String
+  options        String
+  difficulty     Int
+  correct_answer String
+  quiz           Quiz     @relation(fields: [quiz_id], references: [id])
+  quiz_id        String
+  answer         Answer[]
+
+  @@map("questions")
+}
+
+model Answer {
+  id          String   @id
+  value       String
+  is_correct  Boolean?
+  created_at  DateTime @default(now())
+  author      User     @relation(fields: [author_id], references: [id])
+  author_id   String
+  question    Question @relation(fields: [question_id], references: [id])
+  question_id String
+
+  @@map("answers")
 }
