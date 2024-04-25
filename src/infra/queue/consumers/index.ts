@@ -7,6 +7,8 @@ import { MakeProcessExtractTextFromImage } from "@/infra/factories/make-process-
 import { RequestExtractFromImageConsumer } from "./request-text-capture-from-image-consumer";
 import { RegisterCustomerConsumer } from "./register-customer-consumer";
 import { MakeRegisterSubscriptionReference } from "@/infra/factories/make-register-subscription-reference";
+import { RequestQuizFromFileConsumer } from "./request-quiz-from-file-consumer";
+import { MakeProcessQuizFromFile } from "@/infra/factories/make-process-quiz-from-file";
 
 const queue = RedisQueue.getInstance()
 
@@ -14,8 +16,10 @@ const processEssayAssessmentUsecase = MakeProcessEssayAssessment.make()
 const processEnhanceWritingResourcesUsecase = MakeProcessEnhanceWritingResources.make()
 const processExtractTextFromImageUsecase = MakeProcessExtractTextFromImage.make()
 const registerSubscriptionReference = MakeRegisterSubscriptionReference.make()
+const processQuizFromFile = MakeProcessQuizFromFile.make()
 
 new RequestEnhanceWritingConsumer(queue, processEnhanceWritingResourcesUsecase).handler()
 new RequestEvaluateConsumer(queue, processEssayAssessmentUsecase).handler()
 new RequestExtractFromImageConsumer(queue, processExtractTextFromImageUsecase).handler()
 new RegisterCustomerConsumer(queue, registerSubscriptionReference).handler()
+new RequestQuizFromFileConsumer(queue, processQuizFromFile).handler()

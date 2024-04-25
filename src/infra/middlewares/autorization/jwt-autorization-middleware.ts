@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { verify } from "jsonwebtoken";
+import { decode, verify } from "jsonwebtoken";
 
 export class JwtAutorizationMiddleware {
   static async handler(req: Request, res: Response, next: NextFunction) {
@@ -11,6 +11,8 @@ export class JwtAutorizationMiddleware {
     const token = authorization.replace("Bearer ", "")
     try {
       verify(token, process.env.JWT_SECRET as string)
+      const decodedToken = decode(token) as any
+      req.user = decodedToken
       next()
     } catch (err) {
       return res.status(401).json({ message: 'Unauthorized' })

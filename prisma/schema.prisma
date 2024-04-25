@@ -39,6 +39,7 @@ model User {
   subscription        Subscription[]
   quizzes             Quiz[]
   answers             Answer[]
+  QuizRequest         QuizRequest[]
 
   @@map("users")
 }
@@ -129,10 +130,11 @@ model TextCaptureRecord {
   id         String   @id
   status     String
   content    String?
-  photo_path String?
+  file       File     @relation(fields: [file_id], references: [id])
   created_at DateTime @default(now())
   author     User?    @relation(fields: [author_id], references: [id])
   author_id  String?
+  file_id    String
 
   @@map("text-capture-records")
 }
@@ -161,10 +163,13 @@ model Subscription {
 model QuizRequest {
   id         String   @id
   status     String
-  file_path  String
+  file       File     @relation(fields: [file_id], references: [id])
+  file_id    String
+  creator    User     @relation(fields: [creator_id], references: [id])
+  creator_id String
   created_at DateTime @default(now())
   quiz       Quiz?    @relation(fields: [quiz_id], references: [id])
-  quiz_id    String
+  quiz_id    String?
 
   @@map("quiz-requests")
 }
@@ -174,7 +179,7 @@ model Quiz {
   title        String
   creator      User          @relation(fields: [creator_id], references: [id])
   creator_id   String
-  question     Question[]
+  questions    Question[]
   created_at   DateTime      @default(now())
   quiz_request QuizRequest[]
 
@@ -205,4 +210,14 @@ model Answer {
   question_id String
 
   @@map("answers")
+}
+
+model File {
+  id                   String              @id
+  filename             String
+  mimetype             String
+  text_capture_records TextCaptureRecord[]
+  quiz_requests        QuizRequest[]
+
+  @@map("files")
 }
