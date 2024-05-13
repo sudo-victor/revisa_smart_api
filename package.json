@@ -23,16 +23,17 @@
     "tesseract.js": "^5.0.5",
     "tsup": "^8.0.2",
     "tsx": "^4.7.1",
-    "version-sync": "github:sudo-victor/version-sync",
+    "version-sync": "git+https://github.com/sudo-victor/version-sync.git",
     "zod": "^3.22.4"
   },
   "name": "backend",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/main.ts",
     "build": "tsup src/**",
-    "start": "node dist/main.js"
+    "start": "node dist/main.js",
+    "version-sync": "version-sync"
   },
   "keywords": [],
   "author": "",

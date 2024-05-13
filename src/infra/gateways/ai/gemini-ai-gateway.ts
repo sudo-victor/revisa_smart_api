@@ -11,7 +11,7 @@ export class GeminiAiGateway implements AiGateway {
   genAI: GoogleGenerativeAI
 
   constructor() {
-    this.genAI = new GoogleGenerativeAI(process.env.GEMINI_kEY as string);
+    this.genAI = new GoogleGenerativeAI(process.env.GEMINI_KEY as string);
     this.model = this.genAI.getGenerativeModel({ model: "gemini-pro-vision" });
   }
 
