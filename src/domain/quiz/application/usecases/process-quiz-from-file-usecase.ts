@@ -27,7 +27,7 @@ export class ProcessQuizFromFileUsecase {
       creator_id: quizRequest.creatorId,
       questions: answer.questions.map(question => ({
         prompt: question.prompt,
-        options: question.options,
+        options: JSON.stringify(question.options),
         correct_answer: question.correct_answer,
         difficulty: question.difficulty
       }))

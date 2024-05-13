@@ -66,7 +66,7 @@ export class AiTemplateService {
 
   static getQuizFromFileQuestion() {
     return `
-    Instrução: Analise o documento fornecido e crie um quiz baseado em seu conteúdo. O quiz deve incluir 10 questões, com dificuldades variando de 0 (muito fácil) a 5 (muito difícil), distribuídas equilibradamente. Cada questão deve ter quatro opções de resposta, com apenas uma resposta correta. As opções de resposta devem ser menos óbvias e mais desafiadoras.
+    Instrução: Analise o documento fornecido e crie um quiz baseado em seu conteúdo. O quiz deve incluir 5 questões, com dificuldades variando de 0 (muito fácil) a 5 (muito difícil), distribuídas equilibradamente. Cada questão deve ter quatro opções de resposta, com apenas uma resposta correta. As opções de resposta devem ser menos óbvias e mais desafiadoras.
 
     Formato de saída esperado:
     {
