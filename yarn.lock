@@ -4311,7 +4311,7 @@ verror@1.10.0:
 
 "version-sync@git+https://github.com/sudo-victor/version-sync.git":
   version "3.2.3"
-  resolved "git+https://github.com/sudo-victor/version-sync.git#093b6f7bba45efaf0f85fdbb62bc6d126d3128c1"
+  resolved "git+https://github.com/sudo-victor/version-sync.git#2c87571b9e6119ab36a04a9102e9554564d1dd6d"
   dependencies:
     "@google/generative-ai" "^0.11.1"
     "@types/yargs" "^17.0.32"

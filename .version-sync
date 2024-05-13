@@ -1,5 +1,5 @@
 {
   "ai": "chatgpt",
   "git": "github",
-  "baseDir": "src/"
+  "baseDir": "src"
 }
