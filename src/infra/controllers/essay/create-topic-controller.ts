@@ -9,12 +9,12 @@ export class CreateTopicController {
 
   async handler(req: Request, res: Response) {
     const { body } = req
-    const { title, description, exam_kind } = await z.object({
-      title: z.string(),
-      description: z.string(),
-      exam_kind: z.string()
-    }).parseAsync(body)
-    await this.usecase.execute({ title, description, exam_kind })
+    // const { title, description, exam_kind } = await z.object({
+    //   title: z.string(),
+    //   description: z.string(),
+    //   exam_kind: z.string()
+    // }).parseAsync(body)
+    // await this.usecase.execute({ title, description, exam_kind })
     res.status(201).json()
   }
 
