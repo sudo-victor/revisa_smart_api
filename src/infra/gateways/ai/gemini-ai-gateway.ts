@@ -5,18 +5,19 @@ import { AiGateway } from "@/domain/essay/application/gateways/ai-gateway";
 import { EssayAssessmentCreate } from "@/domain/essay/enterprise/entities/essay-assessment";
 import { ResourceReferenceProps } from "@/domain/essay/enterprise/entities/resource-reference";
 import { File } from "@/domain/quiz/enterprise/entities/file";
+import { env } from "@/infra/env";
 
 export class GeminiAiGateway implements AiGateway {
   model: GenerativeModel
   genAI: GoogleGenerativeAI
 
   constructor() {
-    this.genAI = new GoogleGenerativeAI(process.env.GEMINI_KEY as string);
+    this.genAI = new GoogleGenerativeAI(env.GEMINI_KEY as string);
     this.model = this.genAI.getGenerativeModel({ model: "gemini-pro-vision" });
   }
 
   async generateQuiz(question: string, file: File): Promise<any> {
-    const url = `${process.env.AWS_BUCKET_URL}${file.filename}`
+    const url = `${env.AWS_BUCKET_URL}${file.filename}`
     const responseFile = await axios.get(url, { responseType: "arraybuffer" });
     const data = Buffer.from(responseFile.data).toString('base64');
     const result = await this.model.generateContent([

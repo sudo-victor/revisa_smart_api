@@ -1,5 +1,6 @@
 import axios from "axios"
 import { PaymentGateway, RequestCreateCustomerDTO, ResponseCreateCustomerDTO } from "@/domain/subscription/application/gateways/payment-gateway";
+import { env } from "@/infra/env";
 
 export class AsaasPaymentGateway implements  PaymentGateway {
   async createCustomer(params: RequestCreateCustomerDTO): Promise<ResponseCreateCustomerDTO> {
@@ -10,7 +11,7 @@ export class AsaasPaymentGateway implements  PaymentGateway {
       mobilePhone: params.phone
     }, {
       headers: {
-        "access_token": process.env.PAYMENT_KEY
+        "access_token": env.PAYMENT_KEY
       }
     })
     return {

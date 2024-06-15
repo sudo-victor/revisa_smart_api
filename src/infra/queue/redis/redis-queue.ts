@@ -1,4 +1,5 @@
 import { Queue } from "@/domain/essay/application/queue/queue";
+import { env } from "@/infra/env";
 import Redis from "ioredis"
 
 export class RedisQueue implements Queue {
@@ -7,9 +8,8 @@ export class RedisQueue implements Queue {
   private pubClient: Redis
 
   private constructor() {
-    this.subClient = new Redis()
-    this.pubClient = new Redis()
-
+    this.subClient = new Redis({ host: env.QUEUE_HOST })
+    this.pubClient = new Redis({ host: env.QUEUE_HOST })
   }
 
   static getInstance(): RedisQueue {

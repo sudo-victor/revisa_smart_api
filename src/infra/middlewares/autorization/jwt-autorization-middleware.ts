@@ -1,3 +1,4 @@
+import { env } from "@/infra/env";
 import { NextFunction, Request, Response } from "express";
 import { decode, verify } from "jsonwebtoken";
 
@@ -10,7 +11,7 @@ export class JwtAutorizationMiddleware {
     }
     const token = authorization.replace("Bearer ", "")
     try {
-      verify(token, process.env.JWT_SECRET as string)
+      verify(token, env.JWT_SECRET as string)
       const decodedToken = decode(token) as any
       req.user = decodedToken
       next()

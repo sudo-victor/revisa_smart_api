@@ -1,22 +1,23 @@
 import { Storage } from "@/core/storage/storage";
 import { S3Client, PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3"
+import { env } from "../env";
 
 export class S3Storage implements Storage {
   s3: S3Client
   
   constructor() {
     this.s3 = new S3Client({
-      region: process.env.AWS_REGION,
+      region: env.AWS_REGION,
       credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY as string,
-        secretAccessKey: process.env.AWS_SECRET_KEY as string,
+        accessKeyId: env.AWS_ACCESS_KEY as string,
+        secretAccessKey: env.AWS_SECRET_KEY as string,
       }
     })
   }
 
   async get(params: { filename: string; }): Promise<any> {
     const command = new GetObjectCommand({
-      Bucket: process.env.AWS_BUCKET_NAME as string,
+      Bucket: env.AWS_BUCKET_NAME as string,
       Key: params.filename,
       
     });
@@ -26,7 +27,7 @@ export class S3Storage implements Storage {
 
   async upload(params: { filename: string, mimetype: string; content: Buffer; }): Promise<any> {
     const command = new PutObjectCommand({
-      Bucket: process.env.AWS_BUCKET_NAME as string,
+      Bucket: env.AWS_BUCKET_NAME as string,
       Key: params.filename,
       Body: params.content,
       ContentType: params.mimetype,
