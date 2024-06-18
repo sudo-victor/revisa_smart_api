@@ -1,5 +1,7 @@
 # Revisa Smart API
 
+Api de um sistema de Revisão de redação com IA
+
 ## Bora Configurar?
 
 1. Clone o projeto:
