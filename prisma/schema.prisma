@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,17 +5,6 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-enum UserRole {
-  STUDENT
-  TEACHER
-}
-
-enum ExamKind {
-  ENEM
-  PUC
-  UERJ
 }
 
 model User {
@@ -33,13 +16,13 @@ model User {
   phone               String?
   password_hash       String
   created_at          DateTime            @default(now())
-  essay_assessments   EssayAssessment[]
-  writing_resources   WritingResource[]
-  text_capture_record TextCaptureRecord[]
-  subscription        Subscription[]
-  quizzes             Quiz[]
   answers             Answer[]
+  essay_assessments   EssayAssessment[]
   QuizRequest         QuizRequest[]
+  quizzes             Quiz[]
+  subscription        Subscription[]
+  text_capture_record TextCaptureRecord[]
+  writing_resources   WritingResource[]
 
   @@map("users")
 }
@@ -51,12 +34,12 @@ model EssayAssessment {
   title       String
   content     String
   total_score Int?
-  competences Competence[]
-  user        User         @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id     String
   created_at  DateTime     @default(now())
-  topic       Topic?       @relation(fields: [topic_id], references: [id])
   topic_id    String?
+  competences Competence[]
+  topic       Topic?       @relation(fields: [topic_id], references: [id])
+  user        User         @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("essay-assessments")
 }
@@ -66,8 +49,8 @@ model Competence {
   name                String?
   score_achieved      Int?
   possible_score      Int?
-  essay_assessment    EssayAssessment @relation(fields: [essay_assessment_id], references: [id], onDelete: Cascade)
   essay_assessment_id String          @map("essay_assessment_id")
+  essay_assessment    EssayAssessment @relation(fields: [essay_assessment_id], references: [id], onDelete: Cascade)
   suggestions         Suggestion[]
 
   @@map("competences")
@@ -79,8 +62,8 @@ model Suggestion {
   reference     String
   reason        String
   tip           String
-  competence    Competence @relation(fields: [competence_id], references: [id], onDelete: Cascade)
   competence_id String     @map("competence_id")
+  competence    Competence @relation(fields: [competence_id], references: [id], onDelete: Cascade)
 
   @@map("suggestions")
 }
@@ -89,8 +72,8 @@ model Topic {
   id                String            @id
   title             String
   description       String
-  essay_assessments EssayAssessment[]
   exam_kind         ExamKind
+  essay_assessments EssayAssessment[]
 
   @@map("topics")
 }
@@ -100,19 +83,11 @@ model WritingResource {
   status              String              @default("pending")
   theme               String
   thesis              String?
-  author              User                @relation(fields: [author_id], references: [id])
   author_id           String
   resource_references ResourceReference[]
+  author              User                @relation(fields: [author_id], references: [id])
 
   @@map("writing-resources")
-}
-
-enum ResourceReferenceKind {
-  QUOTE
-  BOOK
-  MOVIE
-  TV_SHOW
-  HISTORICAL_FACT
 }
 
 model ResourceReference {
@@ -120,8 +95,8 @@ model ResourceReference {
   kind                ResourceReferenceKind
   title               String
   value               String
-  writing_resource    WritingResource       @relation(fields: [writing_resource_id], references: [id])
   writing_resource_id String
+  writing_resource    WritingResource       @relation(fields: [writing_resource_id], references: [id])
 
   @@map("resource-references")
 }
@@ -130,11 +105,11 @@ model TextCaptureRecord {
   id         String   @id
   status     String
   content    String?
-  file       File     @relation(fields: [file_id], references: [id])
   created_at DateTime @default(now())
-  author     User?    @relation(fields: [author_id], references: [id])
   author_id  String?
   file_id    String
+  author     User?    @relation(fields: [author_id], references: [id])
+  file       File     @relation(fields: [file_id], references: [id])
 
   @@map("text-capture-records")
 }
@@ -153,9 +128,9 @@ model Subscription {
   customer_id String?
   sub_id      String?
   status      String
-  user        User    @relation(fields: [user_id], references: [id])
   user_id     String
   gateway     String
+  user        User    @relation(fields: [user_id], references: [id])
 
   @@map("subscriptions")
 }
@@ -163,13 +138,13 @@ model Subscription {
 model QuizRequest {
   id         String   @id
   status     String
-  file       File     @relation(fields: [file_id], references: [id])
   file_id    String
-  creator    User     @relation(fields: [creator_id], references: [id])
   creator_id String
   created_at DateTime @default(now())
-  quiz       Quiz?    @relation(fields: [quiz_id], references: [id])
   quiz_id    String?
+  creator    User     @relation(fields: [creator_id], references: [id])
+  file       File     @relation(fields: [file_id], references: [id])
+  quiz       Quiz?    @relation(fields: [quiz_id], references: [id])
 
   @@map("quiz-requests")
 }
@@ -177,11 +152,11 @@ model QuizRequest {
 model Quiz {
   id           String        @id
   title        String
-  creator      User          @relation(fields: [creator_id], references: [id])
   creator_id   String
-  questions    Question[]
   created_at   DateTime      @default(now())
+  questions    Question[]
   quiz_request QuizRequest[]
+  creator      User          @relation(fields: [creator_id], references: [id])
 
   @@map("quizzes")
 }
@@ -192,9 +167,9 @@ model Question {
   options        String
   difficulty     Int
   correct_answer String
-  quiz           Quiz     @relation(fields: [quiz_id], references: [id])
   quiz_id        String
   answer         Answer[]
+  quiz           Quiz     @relation(fields: [quiz_id], references: [id])
 
   @@map("questions")
 }
@@ -204,10 +179,10 @@ model Answer {
   value       String
   is_correct  Boolean?
   created_at  DateTime @default(now())
-  author      User     @relation(fields: [author_id], references: [id])
   author_id   String
-  question    Question @relation(fields: [question_id], references: [id])
   question_id String
+  author      User     @relation(fields: [author_id], references: [id])
+  question    Question @relation(fields: [question_id], references: [id])
 
   @@map("answers")
 }
@@ -216,8 +191,27 @@ model File {
   id                   String              @id
   filename             String
   mimetype             String
-  text_capture_records TextCaptureRecord[]
   quiz_requests        QuizRequest[]
+  text_capture_records TextCaptureRecord[]
 
   @@map("files")
+}
+
+enum UserRole {
+  STUDENT
+  TEACHER
+}
+
+enum ExamKind {
+  ENEM
+  PUC
+  UERJ
+}
+
+enum ResourceReferenceKind {
+  QUOTE
+  BOOK
+  MOVIE
+  TV_SHOW
+  HISTORICAL_FACT
 }

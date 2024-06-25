@@ -11,7 +11,9 @@ export class S3Storage implements Storage {
       credentials: {
         accessKeyId: env.AWS_ACCESS_KEY as string,
         secretAccessKey: env.AWS_SECRET_KEY as string,
-      }
+      },
+      endpoint: env.ENV === 'dev' ? env.AWS_ENDPOINT : undefined,
+      forcePathStyle: true,
     })
   }
 

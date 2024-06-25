@@ -13,7 +13,14 @@ COPY . .
 
 RUN yarn build
 
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
+
 RUN npx prisma generate
+
+RUN echo $DATABASE_URL
+
+RUN npx prisma db pull
 
 FROM node:20-alpine as production
 

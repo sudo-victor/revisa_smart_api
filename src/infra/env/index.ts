@@ -13,7 +13,9 @@ const _env = z.object({
   AWS_BUCKET_NAME: z.string(),
   AWS_BUCKET_URL: z.string(),
   PAYMENT_KEY: z.string(),
-  PORT: z.coerce.number().default(3333)
+  PORT: z.coerce.number().default(3333),
+  ENV: z.string().default('dev'),
+  AWS_ENDPOINT: z.string().optional(),
 })
 
 export const env = _env.parse(process.env)
