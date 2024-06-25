@@ -16,6 +16,8 @@ const _env = z.object({
   PORT: z.coerce.number().default(3333),
   ENV: z.string().default('dev'),
   AWS_ENDPOINT: z.string().optional(),
+  AWS_QUEUE_NAME: z.string(),
+  AWS_ACCOUNT_ID: z.string().optional()
 })
 
 export const env = _env.parse(process.env)

@@ -35,8 +35,8 @@ export class ProcessQuizFromFileUsecase {
     quizRequest.complete(quiz.id)
     await this.quizRepository.create(quiz)
     await this.quizRequestRepository.save(quizRequest)
-    console.log(`Finish ProcessQuizFromFileUsecase`)
-    return {}
+    console.log(`Finish ProcessQuizFromFileUsecase ${quiz.id.value}`)
+    return { success: true, id: quiz.id }
   }
 }
 

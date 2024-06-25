@@ -2,8 +2,9 @@ import { RequestQuizFromFileUsecase } from "@/domain/quiz/application/usecases/r
 import { RequestQuizFromFileController } from "../controllers/quiz/request-quiz-from-file-controller";
 import { PrismaQuizRequestRepository } from "../database/prisma/repositories/prisma-quiz-request-repository";
 import { S3Storage } from "../storage/s3-storage";
-import { RedisQueue } from "../queue/redis/redis-queue";
 import { PrismaFileRepository } from "../database/prisma/repositories/prisma-file-repository";
+import { SQSQueue } from "../queue/sqs/sqs-queue";
+import { SNSQueue } from "../queue/sns/sns-queue";
 
 export class MakeQuizFromFile {
   static make() {
@@ -14,7 +15,7 @@ export class MakeQuizFromFile {
       quizRequestRepository,
       fileRepository,
       storage,
-      RedisQueue.getInstance()
+      SNSQueue.getInstance()
     )
     const controller = new RequestQuizFromFileController(usecase)
     return controller
