@@ -18,7 +18,7 @@ export class SNSQueue extends Queue {
       },
       endpoint: isLocal ? env.AWS_ENDPOINT : undefined,
     });
-    this.topicArn = `arn:aws:sns:${env.AWS_REGION}:${isLocal ? '000000000000' : env.AWS_ACCOUNT_ID}:GenerateQuizFromFileEvent`;
+    this.topicArn = `arn:aws:sns:${env.AWS_REGION}:${isLocal ? '000000000000' : env.AWS_ACCOUNT_ID}:`;
   }
 
   static getInstance(): SNSQueue {
@@ -30,7 +30,7 @@ export class SNSQueue extends Queue {
 
   async publish(name: string, data: any): Promise<void> {
     const params = {
-      TopicArn: this.topicArn,
+      TopicArn: `${this.topicArn}${name}`,
       Message: JSON.stringify(data),
     };
 

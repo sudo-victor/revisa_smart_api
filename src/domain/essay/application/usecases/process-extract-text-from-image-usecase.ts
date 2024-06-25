@@ -14,7 +14,6 @@ export class ProcessExtractTextFromImageUsecase {
   ) {}
 
   async execute(props: Input): Promise<Output> {
-    console.log(`Start extract text: `, props)
     await sleep(500)
     const textCaptureRecord = await this.textCaptureRecordRepository.getById(props.id)
     if (!textCaptureRecord || !textCaptureRecord.photoPath) throw new Error('TextCaptureRecord not found')

@@ -21,7 +21,7 @@ export class RequestEvaluateEssayUsecase {
       essay_title: props.topic_id ? topic?.title as string : props.title as string,
       essay_content: props.content,
       essay_kind: props.kind,
-      topic
+      topic,
     })
     essayAssessment.register(async (event: DomainEvent) => {
       await this.queue.publish(event.name, JSON.stringify(event))

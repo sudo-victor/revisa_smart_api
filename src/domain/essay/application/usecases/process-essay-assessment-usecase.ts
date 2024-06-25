@@ -13,7 +13,6 @@ export class ProcessEssayAssessmentUsecase {
   ) { }
 
   async execute(props: Input): Promise<Output> {
-    console.log(`Start evaluate essay: `, props)
     await sleep(500)
     const essayAssessment = await this.essayAssessmentRepository.getByIdWithDetails(props.id)
     if (!essayAssessment) throw new Error('Essay not found')
